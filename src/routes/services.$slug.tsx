@@ -82,7 +82,7 @@ function ServicePage() {
 
           <h3 className="mt-10 font-display text-xl font-semibold md:text-2xl">Our process</h3>
           <ol className="mt-3 grid gap-4">
-            {service.process.map((p: { title: string; body: string }, i: number) => (
+            {service.process.map((p: { title: string; text: string }, i: number) => (
               <li key={p.title} className="rounded-lg border border-border bg-card p-5">
                 <div className="flex items-start gap-3">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">{i + 1}</div>
