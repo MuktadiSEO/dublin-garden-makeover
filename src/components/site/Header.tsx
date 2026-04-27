@@ -67,12 +67,15 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <a href={SITE.phoneHref} className="hidden items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:opacity-90 md:inline-flex">
+          <a href={SITE.phoneHref} className="hidden items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90 md:inline-flex">
             <Phone className="h-4 w-4" /> {SITE.phoneDisplay}
           </a>
-          <Button asChild variant="outline" size="sm" className="hidden md:inline-flex">
-            <Link to="/contact">Get Quote</Link>
-          </Button>
+          <Link
+            to="/contact"
+            className="hidden items-center gap-2 rounded-md bg-accent px-4 py-2.5 text-sm font-semibold text-accent-foreground transition hover:opacity-90 md:inline-flex"
+          >
+            Get Quote
+          </Link>
           <button onClick={() => setOpen(!open)} className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border lg:hidden" aria-label="Toggle menu">
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
