@@ -17,36 +17,38 @@ A high-converting marketing website for M&J Paving and Gardening, built with **T
 ```bash
 npm install
 npm run dev      # http://localhost:5173
-npm run build    # production build
+npm run build    # production build (SSR)
 ```
 
-## Deploying via GitHub
+## Deployment
 
-This project is built on **TanStack Start** which is configured for an edge SSR runtime (Cloudflare Workers by default). You have two great deployment options once the repo is on GitHub:
+> ⚠️ **Important:** This project is built on **TanStack Start**, which produces an **SSR worker bundle** (`dist/server/index.js`) — not a static site. There is no `index.html` in the build output, so plain static hosts (including standard Vercel deployments without an adapter) will return **404** on every route.
 
-### Option A — One-click via Lovable (recommended)
+Pick one of the supported paths below.
 
-Click **Publish** in the Lovable editor. Lovable hosts your live site on a `*.lovable.app` domain (and lets you connect your custom `mjpavingandgardening.ie` domain in Project Settings → Domains). This is the simplest path and supports full SSR out of the box.
+### ✅ Option A — One-click via Lovable (recommended)
 
-### Option B — Push to GitHub and deploy on Vercel
+Click **Publish** in the Lovable editor. Lovable hosts your site with full SSR on a `*.lovable.app` domain and lets you connect your custom `mjpavingandgardening.ie` domain in **Project Settings → Domains**.
 
-1. In Lovable, click **GitHub → Connect to GitHub** to push this repo to your account.
-2. Go to [vercel.com/new](https://vercel.com/new) and import the repo.
-3. Vercel will auto-detect the Vite project. Use these settings if prompted:
-   - **Framework preset:** *Vite*
+This is the fastest, zero-config path and is what we recommend.
+
+### ✅ Option B — Cloudflare Pages / Workers (GitHub-based)
+
+This template is already configured for the Cloudflare Workers runtime (see `wrangler.jsonc`).
+
+1. Push the repo to GitHub via Lovable's **GitHub → Connect to GitHub** button.
+2. In the Cloudflare dashboard go to **Workers & Pages → Create → Pages → Connect to Git**.
+3. Select the repo. Use these build settings:
    - **Build command:** `npm run build`
-   - **Output directory:** `dist/client`
-   - **Install command:** `npm install`
-4. Click **Deploy**.
+   - **Build output directory:** `dist/client`
+   - Cloudflare picks up the SSR worker from `dist/server/index.js` automatically via `wrangler.jsonc`.
+4. Deploy. Add your custom domain in the Pages project's **Custom domains** tab.
 
-> Because this template targets an edge runtime, full SSR on Vercel may require switching the build target to a Vercel adapter. If you only need the marketing pages (which is all this site contains), the static client output works perfectly. For full SSR on Vercel ask your developer to swap the host preset in `vite.config.ts`.
+### ⚠️ Vercel
 
-### Option C — Deploy on Cloudflare Pages
+Vercel deployment is **not** supported out of the box for this template, because TanStack Start's default build targets the Cloudflare Workers runtime — Vercel's static deploy of `dist/client` has no `index.html` and will 404 on every page (this is the issue you saw).
 
-This template is already configured for Cloudflare Workers (see `wrangler.jsonc`). Connect the GitHub repo to Cloudflare Pages with:
-- **Build command:** `npm run build`
-- **Output directory:** `dist/client`
-- Cloudflare auto-deploys the SSR worker from `dist/server`.
+To deploy on Vercel you would need to swap the build host in `vite.config.ts` from the Cloudflare preset to a **Vercel adapter** for TanStack Start. This is a non-trivial template change. If you specifically need Vercel, ask in the Lovable editor and we can rework the project to target it.
 
 ## Editing Content
 
