@@ -1,11 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { CTASection } from "@/components/site/CTASection";
-import heroImg from "@/assets/hero-driveway.jpg";
-import grass from "@/assets/artificial-grass.jpg";
-import patio from "@/assets/patio-sandstone.jpg";
-import gravel from "@/assets/gravel-driveway.jpg";
-import landscaping from "@/assets/landscaping.jpg";
+import { posts } from "@/lib/blog";
 
 export const Route = createFileRoute("/blog")({
   head: () => ({
@@ -19,15 +15,8 @@ export const Route = createFileRoute("/blog")({
   component: BlogPage,
 });
 
-const posts = [
-  { slug: "best-driveway-options-dublin", title: "Best Driveway Options for Homes in Dublin", excerpt: "Block paving, tarmac, resin or gravel? Here's how to choose the right driveway for your Dublin home — looks, cost and longevity compared.", image: heroImg },
-  { slug: "artificial-grass-vs-natural-turf", title: "Artificial Grass vs Natural Turf: Which Is Right for Your Garden?", excerpt: "Both have their place. We break down the maintenance, cost and lifestyle factors that decide which works best for your garden.", image: grass },
-  { slug: "choosing-the-right-paving-for-your-patio", title: "How to Choose the Right Paving for Your Patio", excerpt: "Sandstone, limestone, porcelain or concrete? A practical guide to picking patio paving that suits your home and budget.", image: patio },
-  { slug: "why-proper-drainage-matters", title: "Why Proper Drainage Matters for Your Driveway", excerpt: "Skipping drainage is the #1 reason driveways fail early. Here's what proper drainage looks like and why it pays off.", image: gravel },
-  { slug: "garden-landscaping-ideas-leinster", title: "Garden Landscaping Ideas for Leinster Homes", excerpt: "From low-maintenance lawns to bespoke seating areas — practical landscaping ideas perfectly suited to Leinster gardens.", image: landscaping },
-];
-
 function BlogPage() {
+  const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date));
   return (
     <>
       <section className="border-b border-border bg-secondary/40">
@@ -40,10 +29,15 @@ function BlogPage() {
 
       <section className="container-tight py-16">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((p) => (
-            <article key={p.slug} className="flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-card">
+          {sorted.map((p) => (
+            <Link
+              key={p.slug}
+              to="/blog/$slug"
+              params={{ slug: p.slug }}
+              className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-card transition hover:shadow-lg"
+            >
               <div className="aspect-[16/10] overflow-hidden bg-muted">
-                <img src={p.image} alt={p.title} loading="lazy" width={1280} height={800} className="h-full w-full object-cover" />
+                <img src={p.image} alt={p.title} loading="lazy" width={1280} height={800} className="h-full w-full object-cover transition group-hover:scale-105" />
               </div>
               <div className="flex flex-1 flex-col p-5">
                 <h2 className="font-display text-lg font-semibold leading-snug">{p.title}</h2>
@@ -52,7 +46,7 @@ function BlogPage() {
                   Read more <ArrowRight className="h-4 w-4" />
                 </span>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </section>
