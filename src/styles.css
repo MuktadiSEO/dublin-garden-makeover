@@ -60,7 +60,7 @@
   --muted: oklch(0.95 0.01 90);
   --muted-foreground: oklch(0.45 0.015 150);
 
-  --accent: oklch(0.68 0.13 80);                 /* warm earthy ochre */
+  --accent: #F2A618;                              /* warm amber */
   --accent-foreground: oklch(0.18 0.02 150);
 
   --destructive: oklch(0.55 0.22 27);
