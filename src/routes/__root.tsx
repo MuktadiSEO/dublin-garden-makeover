@@ -2,6 +2,7 @@ import { Outlet, Link, createRootRoute, HeadContent } from "@tanstack/react-rout
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { FloatingCall } from "@/components/site/FloatingCall";
+import { FloatingWhatsApp } from "@/components/site/FloatingWhatsApp";
 
 function NotFoundComponent() {
   return (
@@ -52,6 +53,7 @@ function RootComponent() {
         </main>
         <Footer />
         <FloatingCall />
+        <FloatingWhatsApp />
       </div>
     </>
   );
