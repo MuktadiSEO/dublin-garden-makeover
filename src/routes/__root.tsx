@@ -28,6 +28,7 @@ export const Route = createRootRoute({
       { title: "M&J Paving and Gardening | Driveways & Landscaping Dublin" },
       { name: "description", content: "Trusted paving, driveways, patios, fencing, decking and landscaping across Dublin and all Leinster. Free quotes — call 085 283 4956." },
       { name: "author", content: "M&J Paving and Gardening" },
+      { name: "google-site-verification", content: "kcW1JHWPuVSlZv-OhkjPTTmbjcDi3rcsZThv1Lpikx0" },
       { property: "og:title", content: "M&J Paving and Gardening | Driveways & Landscaping Dublin" },
       { property: "og:description", content: "Trusted paving, driveways, patios, fencing, decking and landscaping across Dublin and all Leinster. Free quotes — call 085 283 4956." },
       { property: "og:type", content: "website" },
