@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { CTASection } from "@/components/site/CTASection";
@@ -48,7 +49,7 @@ export const Route = createFileRoute("/blog/$slug")({
 });
 
 function renderContent(content: BlogPost["content"]) {
-  const blocks: JSX.Element[] = [];
+  const blocks: ReactElement[] = [];
   let listBuffer: string[] = [];
 
   const flushList = (key: string) => {
