@@ -23,9 +23,9 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-md">
       <div className="container-tight flex h-16 items-center justify-between gap-4 md:h-20">
-        <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold leading-tight md:text-xl">
-          <span className="flex h-9 w-9 items-center justify-center rounded-md bg-primary text-primary-foreground">M&amp;J</span>
-          <span className="hidden sm:inline">Paving &amp; Gardening</span>
+        <Link to="/" className="flex items-center gap-2 font-display text-base font-bold leading-tight md:text-lg">
+          <img src={logoIcon} alt="M&J Paving and Gardening logo" width={40} height={40} className="h-9 w-9 md:h-10 md:w-10 object-contain" />
+          <span className="whitespace-nowrap">MJ Paving &amp; Gardening</span>
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
