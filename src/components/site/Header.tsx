@@ -80,7 +80,7 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="border-t border-border bg-background lg:hidden">
+        <div className="border-t border-border bg-background lg:hidden max-h-[calc(100vh-4rem)] overflow-y-auto">
           <div className="container-tight space-y-1 py-4">
             {navLinks.map((l) => (
               <Link key={l.to} to={l.to} onClick={() => setOpen(false)}
@@ -90,10 +90,16 @@ export function Header() {
             ))}
             <Link to="/services" onClick={() => setOpen(false)}
               className="block rounded-md px-3 py-2 text-base font-medium hover:bg-secondary">All Services</Link>
-            <details className="group">
-              <summary className="flex cursor-pointer items-center justify-between rounded-md px-3 py-2 text-sm text-muted-foreground">
-                Browse all services <ChevronDown className="h-4 w-4 transition group-open:rotate-180" />
-              </summary>
+            <button
+              type="button"
+              onClick={() => setServicesOpen((v) => !v)}
+              aria-expanded={servicesOpen}
+              className="flex w-full items-center justify-between rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-secondary"
+            >
+              Browse all services
+              <ChevronDown className={cn("h-4 w-4 transition", servicesOpen && "rotate-180")} />
+            </button>
+            {servicesOpen && (
               <div className="mt-1 space-y-1 pl-3">
                 {services.map((s) => (
                   <Link key={s.slug} to="/services/$slug" params={{ slug: s.slug }} onClick={() => setOpen(false)}
@@ -102,7 +108,7 @@ export function Header() {
                   </Link>
                 ))}
               </div>
-            </details>
+            )}
             <a href={SITE.phoneHref} className="mt-2 flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-3 font-semibold text-primary-foreground">
               <Phone className="h-4 w-4" /> Call {SITE.phoneDisplay}
             </a>
