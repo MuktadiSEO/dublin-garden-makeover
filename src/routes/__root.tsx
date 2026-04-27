@@ -1,5 +1,4 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
-import appCss from "../styles.css?url";
+import { Outlet, Link, createRootRoute, HeadContent } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { FloatingCall } from "@/components/site/FloatingCall";
@@ -26,8 +25,6 @@ function NotFoundComponent() {
 export const Route = createRootRoute({
   head: () => ({
     meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "M&J Paving and Gardening | Driveways & Landscaping Dublin" },
       { name: "description", content: "Trusted paving, driveways, patios, fencing, decking and landscaping across Dublin and all Leinster. Free quotes — call 085 283 4956." },
       { name: "author", content: "M&J Paving and Gardening" },
@@ -37,42 +34,24 @@ export const Route = createRootRoute({
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "M&J Paving and Gardening | Driveways & Landscaping Dublin" },
       { name: "twitter:description", content: "Trusted paving, driveways, patios, fencing, decking and landscaping across Dublin and all Leinster. Free quotes — call 085 283 4956." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/374763d2-5c30-44fb-9898-cf174d8022a1/id-preview-438d85e4--5fa7e98d-cb30-4468-b793-7caf7cd3c298.lovable.app-1777303705582.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/374763d2-5c30-44fb-9898-cf174d8022a1/id-preview-438d85e4--5fa7e98d-cb30-4468-b793-7caf7cd3c298.lovable.app-1777303705582.png" },
-    ],
-    links: [
-      { rel: "stylesheet", href: appCss },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" },
     ],
   }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
 });
 
-function RootShell({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head><HeadContent /></head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
-
 function RootComponent() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <Header />
-      <main className="flex-1">
-        <Outlet />
-      </main>
-      <Footer />
-      <FloatingCall />
-    </div>
+    <>
+      <HeadContent />
+      <div className="flex min-h-screen flex-col">
+        <Header />
+        <main className="flex-1">
+          <Outlet />
+        </main>
+        <Footer />
+        <FloatingCall />
+      </div>
+    </>
   );
 }
