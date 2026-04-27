@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dublin-garden-makeover.lovable.app/sitemap.xml
