@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { CTASection } from "@/components/site/CTASection";
 import { posts } from "@/lib/blog";
 
-export const Route = createFileRoute("/blog")({
+export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
       { title: "Blog | Paving & Landscaping Tips Dublin | M&J" },
