@@ -5,6 +5,7 @@ import { SITE } from "@/lib/site";
 import { services } from "@/lib/services";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import logoIcon from "@/assets/logo-icon.png";
 
 const navLinks = [
   { to: "/", label: "Home" },
