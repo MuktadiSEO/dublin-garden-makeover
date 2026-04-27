@@ -15,37 +15,43 @@ A high-converting marketing website for M&J Paving and Gardening, built with **T
 ## Local Development
 
 ```bash
-bun install     # or: npm install
-bun run dev     # http://localhost:5173
-bun run build   # production build
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # production build
 ```
 
-## Deploying to Vercel via GitHub
+## Deploying via GitHub
 
-This project is built on TanStack Start. The easiest, most reliable way to deploy on Vercel is as a static prerendered site, since the marketing pages are fully static.
+This project is built on **TanStack Start** which is configured for an edge SSR runtime (Cloudflare Workers by default). You have two great deployment options once the repo is on GitHub:
 
-### 1. Push to GitHub
+### Option A — One-click via Lovable (recommended)
 
-In Lovable, click **GitHub → Connect to GitHub** to push this repo to your account. Then on Vercel:
+Click **Publish** in the Lovable editor. Lovable hosts your live site on a `*.lovable.app` domain (and lets you connect your custom `mjpavingandgardening.ie` domain in Project Settings → Domains). This is the simplest path and supports full SSR out of the box.
 
-### 2. Import the repo on Vercel
+### Option B — Push to GitHub and deploy on Vercel
 
-- Go to [vercel.com/new](https://vercel.com/new) and import the GitHub repo.
-- **Framework preset:** *Other* (Vite).
+1. In Lovable, click **GitHub → Connect to GitHub** to push this repo to your account.
+2. Go to [vercel.com/new](https://vercel.com/new) and import the repo.
+3. Vercel will auto-detect the Vite project. Use these settings if prompted:
+   - **Framework preset:** *Vite*
+   - **Build command:** `npm run build`
+   - **Output directory:** `dist/client`
+   - **Install command:** `npm install`
+4. Click **Deploy**.
+
+> Because this template targets an edge runtime, full SSR on Vercel may require switching the build target to a Vercel adapter. If you only need the marketing pages (which is all this site contains), the static client output works perfectly. For full SSR on Vercel ask your developer to swap the host preset in `vite.config.ts`.
+
+### Option C — Deploy on Cloudflare Pages
+
+This template is already configured for Cloudflare Workers (see `wrangler.jsonc`). Connect the GitHub repo to Cloudflare Pages with:
 - **Build command:** `npm run build`
 - **Output directory:** `dist/client`
-- **Install command:** `npm install`
-
-### 3. Click Deploy
-
-Vercel will build the site and serve it from `dist/client`. The included `vercel.json` adds an SPA fallback so deep links like `/services/block-paving` work on refresh.
-
-> If you want full SSR on Vercel, you can swap the host preset to Vercel's adapter — but for a marketing site the static build is faster, cheaper and SEO-friendly.
+- Cloudflare auto-deploys the SSR worker from `dist/server`.
 
 ## Editing Content
 
 - **Business info / phone / hours:** `src/lib/site.ts`
-- **Services list and page content:** `src/lib/services.ts`
+- **Services list and page copy:** `src/lib/services.ts`
 - **Pages:** `src/routes/*`
 - **Design tokens / colours:** `src/styles.css`
 - **Images:** `src/assets/`
