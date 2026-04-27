@@ -10,18 +10,28 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TestimonialsRouteImport } from './routes/testimonials'
+import { Route as SitemapRouteImport } from './routes/sitemap'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SitemapIndexRouteImport } from './routes/sitemap.index'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as SitemapServicesRouteImport } from './routes/sitemap.services'
+import { Route as SitemapPostsRouteImport } from './routes/sitemap.posts'
+import { Route as SitemapPagesRouteImport } from './routes/sitemap.pages'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
 const TestimonialsRoute = TestimonialsRouteImport.update({
   id: '/testimonials',
   path: '/testimonials',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapRoute = SitemapRouteImport.update({
+  id: '/sitemap',
+  path: '/sitemap',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GalleryRoute = GalleryRouteImport.update({
@@ -44,6 +54,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapIndexRoute = SitemapIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SitemapRoute,
+} as any)
 const ServicesIndexRoute = ServicesIndexRouteImport.update({
   id: '/services/',
   path: '/services/',
@@ -53,6 +68,21 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapServicesRoute = SitemapServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => SitemapRoute,
+} as any)
+const SitemapPostsRoute = SitemapPostsRouteImport.update({
+  id: '/posts',
+  path: '/posts',
+  getParentRoute: () => SitemapRoute,
+} as any)
+const SitemapPagesRoute = SitemapPagesRouteImport.update({
+  id: '/pages',
+  path: '/pages',
+  getParentRoute: () => SitemapRoute,
 } as any)
 const ServicesSlugRoute = ServicesSlugRouteImport.update({
   id: '/services/$slug',
@@ -70,11 +100,16 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
+  '/sitemap': typeof SitemapRouteWithChildren
   '/testimonials': typeof TestimonialsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/sitemap/pages': typeof SitemapPagesRoute
+  '/sitemap/posts': typeof SitemapPostsRoute
+  '/sitemap/services': typeof SitemapServicesRoute
   '/blog/': typeof BlogIndexRoute
   '/services/': typeof ServicesIndexRoute
+  '/sitemap/': typeof SitemapIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -84,8 +119,12 @@ export interface FileRoutesByTo {
   '/testimonials': typeof TestimonialsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/sitemap/pages': typeof SitemapPagesRoute
+  '/sitemap/posts': typeof SitemapPostsRoute
+  '/sitemap/services': typeof SitemapServicesRoute
   '/blog': typeof BlogIndexRoute
   '/services': typeof ServicesIndexRoute
+  '/sitemap': typeof SitemapIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -93,11 +132,16 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/gallery': typeof GalleryRoute
+  '/sitemap': typeof SitemapRouteWithChildren
   '/testimonials': typeof TestimonialsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/sitemap/pages': typeof SitemapPagesRoute
+  '/sitemap/posts': typeof SitemapPostsRoute
+  '/sitemap/services': typeof SitemapServicesRoute
   '/blog/': typeof BlogIndexRoute
   '/services/': typeof ServicesIndexRoute
+  '/sitemap/': typeof SitemapIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -106,11 +150,16 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/gallery'
+    | '/sitemap'
     | '/testimonials'
     | '/blog/$slug'
     | '/services/$slug'
+    | '/sitemap/pages'
+    | '/sitemap/posts'
+    | '/sitemap/services'
     | '/blog/'
     | '/services/'
+    | '/sitemap/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -120,19 +169,28 @@ export interface FileRouteTypes {
     | '/testimonials'
     | '/blog/$slug'
     | '/services/$slug'
+    | '/sitemap/pages'
+    | '/sitemap/posts'
+    | '/sitemap/services'
     | '/blog'
     | '/services'
+    | '/sitemap'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/contact'
     | '/gallery'
+    | '/sitemap'
     | '/testimonials'
     | '/blog/$slug'
     | '/services/$slug'
+    | '/sitemap/pages'
+    | '/sitemap/posts'
+    | '/sitemap/services'
     | '/blog/'
     | '/services/'
+    | '/sitemap/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -140,6 +198,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
   GalleryRoute: typeof GalleryRoute
+  SitemapRoute: typeof SitemapRouteWithChildren
   TestimonialsRoute: typeof TestimonialsRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
@@ -153,6 +212,13 @@ declare module '@tanstack/react-router' {
       path: '/testimonials'
       fullPath: '/testimonials'
       preLoaderRoute: typeof TestimonialsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap': {
+      id: '/sitemap'
+      path: '/sitemap'
+      fullPath: '/sitemap'
+      preLoaderRoute: typeof SitemapRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gallery': {
@@ -183,6 +249,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap/': {
+      id: '/sitemap/'
+      path: '/'
+      fullPath: '/sitemap/'
+      preLoaderRoute: typeof SitemapIndexRouteImport
+      parentRoute: typeof SitemapRoute
+    }
     '/services/': {
       id: '/services/'
       path: '/services'
@@ -196,6 +269,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/blog/'
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/sitemap/services': {
+      id: '/sitemap/services'
+      path: '/services'
+      fullPath: '/sitemap/services'
+      preLoaderRoute: typeof SitemapServicesRouteImport
+      parentRoute: typeof SitemapRoute
+    }
+    '/sitemap/posts': {
+      id: '/sitemap/posts'
+      path: '/posts'
+      fullPath: '/sitemap/posts'
+      preLoaderRoute: typeof SitemapPostsRouteImport
+      parentRoute: typeof SitemapRoute
+    }
+    '/sitemap/pages': {
+      id: '/sitemap/pages'
+      path: '/pages'
+      fullPath: '/sitemap/pages'
+      preLoaderRoute: typeof SitemapPagesRouteImport
+      parentRoute: typeof SitemapRoute
     }
     '/services/$slug': {
       id: '/services/$slug'
@@ -214,11 +308,29 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface SitemapRouteChildren {
+  SitemapPagesRoute: typeof SitemapPagesRoute
+  SitemapPostsRoute: typeof SitemapPostsRoute
+  SitemapServicesRoute: typeof SitemapServicesRoute
+  SitemapIndexRoute: typeof SitemapIndexRoute
+}
+
+const SitemapRouteChildren: SitemapRouteChildren = {
+  SitemapPagesRoute: SitemapPagesRoute,
+  SitemapPostsRoute: SitemapPostsRoute,
+  SitemapServicesRoute: SitemapServicesRoute,
+  SitemapIndexRoute: SitemapIndexRoute,
+}
+
+const SitemapRouteWithChildren =
+  SitemapRoute._addFileChildren(SitemapRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   GalleryRoute: GalleryRoute,
+  SitemapRoute: SitemapRouteWithChildren,
   TestimonialsRoute: TestimonialsRoute,
   ServicesSlugRoute: ServicesSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
